@@ -3,6 +3,9 @@ import "./App.css";
 import { AppSidebar } from "./components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
 import Workers from "./pages/Workers";
+import Dashboard from "./pages/Dashboard";
+import Documents from "./pages/Documents";
+import Payments from "./pages/Payments";
 
 function App() {
   return (
@@ -16,7 +19,7 @@ function App() {
           <Routes>
             <Route
               path="/dashboard"
-              element={<h1 className="text-2xl font-bold ">Dashboard</h1>}
+              element={<Dashboard />}
             />
             <Route
               path="/workers"
@@ -24,11 +27,11 @@ function App() {
             />
             <Route
               path="/documents"
-              element={<h1 className="text-2xl font-bold ">Documents</h1>}
+              element={<Documents />}
             />
             <Route
               path="/payments"
-              element={<h1 className="text-2xl font-bold ">Payments</h1>}
+              element={<Payments />}
             />
             <Route
               path="*"
