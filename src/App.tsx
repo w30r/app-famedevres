@@ -6,6 +6,7 @@ import Workers from "./pages/Workers";
 import Dashboard from "./pages/Dashboard";
 import Documents from "./pages/Documents";
 import Payments from "./pages/Payments";
+import AddWorker from "./pages/AddWorker";
 
 function App() {
   return (
@@ -13,26 +14,15 @@ function App() {
       <div className="flex min-h-screen min-w-screen bg-background">
         <AppSidebar />
         <div className="pt-3 pl-3 xbg-white/20">
-          <SidebarTrigger className="focus-visible:border-none focus-visible:outline-none "/>
+          <SidebarTrigger className="focus-visible:border-none focus-visible:outline-none " />
         </div>
         <main className="flex-1 overflow-y-auto">
           <Routes>
-            <Route
-              path="/dashboard"
-              element={<Dashboard />}
-            />
-            <Route
-              path="/workers"
-              element={<Workers />}
-            />
-            <Route
-              path="/documents"
-              element={<Documents />}
-            />
-            <Route
-              path="/payments"
-              element={<Payments />}
-            />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/workers" element={<Workers />} />
+            <Route path="/documents" element={<Documents />} />
+            <Route path="/payments" element={<Payments />} />
+            <Route path="/workers/add" element={<AddWorker />} />
             <Route
               path="*"
               element={<h1 className="text-2xl font-bold ">404 Not Found</h1>}

@@ -24,7 +24,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
             <p>100 out of 350</p>
-            <Progress value={60} />
+            <Progress value={30} />
           </CardContent>
         </Card>
         <Card className="">
@@ -36,22 +36,22 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <p>20 JUNE 2025</p>
-            <p className="font-normal text-sm text-white/50">(7 hari sebelum)</p>
+            <p className="font-normal text-sm text-white/50">(7 hari selepas)</p>
           </CardContent>
           <CardFooter className="font-normal text-sm">
-            <p>John Doe</p>
-          </CardFooter>
+            <p>John Wick</p> </CardFooter>
         </Card>
         <Card className="col-spanx-2">
           <CardHeader>
-            <CardTitle>xxxWORKERS</CardTitle>
+            <CardTitle>WORKERS</CardTitle>
             <CardDescription className="font-normal text-sm">
               The number of workers
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
             <p>100 out of 350</p>
-            <Progress value={60} />
+            <Progress value={100
+            } />
           </CardContent>
         </Card>
       </div>
