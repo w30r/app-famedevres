@@ -7,7 +7,6 @@ export type Worker = {
   id: number;
   name: string;
   photo: string | null;
-  nationality?: string;
   passportNumber: string;
   permitVisaNumber: string;
   permitVisaExpiry: string;
@@ -22,16 +21,13 @@ export const columns: ColumnDef<Worker>[] = [
     header: "Name",
     cell: ({ row }) => {
       const name = row.getValue("name") as string;
-      const nationality = row.getValue("nationality") as string | null;
       return (
-        <div className="flex items-center gap-2">
-          {nationality === "Bangladeshi" && nationality && (
-            <img
+        <div className="flex items-center gap-2 w-fit mr-10">
+          <img
               alt="Bangladesh"
               src="http://purecatamphetamine.github.io/country-flag-icons/3x2/BD.svg"
               className="w-6 h-auto rounded-xs"
             />
-          )}
           <div className="font-medium">{name}</div>
         </div>
       );
