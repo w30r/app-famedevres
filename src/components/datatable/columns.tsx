@@ -50,6 +50,10 @@ export const columns: ColumnDef<Worker>[] = [
   {
     accessorKey: "phoneNumber",
     header: "Phone Number",
+    cell: ({ row }) => {
+      const phoneNumber = row.getValue("phoneNumber") as string;
+      return <p>{phoneNumber.slice(0, 3) + "-" + phoneNumber.slice(3)}</p>;
+    },
   },
   {
     accessorKey: "passportNumber",
