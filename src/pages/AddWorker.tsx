@@ -12,7 +12,7 @@ export default function AddWorker() {
     // id: 5,
     name: "",
     phoneNumber: "",
-    status: "",
+    status: "Active",
     passportNumber: "",
     permitVisaExpiry: "",
     RMPaid: 0,
@@ -26,7 +26,7 @@ export default function AddWorker() {
   const handleSubmit = async (worker: Worker) => {
     try {
       await addWorker(worker);
-      // navigate("/workers");
+      navigate("/workers");
     } catch (error) {
       console.error("Error adding worker:", error);
     }

@@ -9,7 +9,7 @@ export type Worker = {
   photo: string | null;
   passportNumber: string;
   permitVisaNumber: string;
-  permitVisaExpiry: string;
+  permitVisaExpiry: Date | null;
   phoneNumber: string;
   siteProject: string;
   status: "Active" | "Transferred" | "Left";
@@ -22,7 +22,7 @@ export const columns: ColumnDef<Worker>[] = [
     cell: ({ row }) => {
       const name = row.getValue("name") as string;
       return (
-        <div className="flex items-center gap-2 w-fit mr-10">
+        <div className="flex items-center gap-2 w-fit mr-8">
           <img
               alt="Bangladesh"
               src="http://purecatamphetamine.github.io/country-flag-icons/3x2/BD.svg"
@@ -34,24 +34,33 @@ export const columns: ColumnDef<Worker>[] = [
     },
   },
   {
-    accessorKey: "passportNumber",
-    header: "Passport Number",
-  },
-  {
-    accessorKey: "permitVisaNumber",
-    header: "Permit/Visa Number",
-  },
-  {
-    accessorKey: "permitVisaExpiry",
-    header: "Permit/Visa Expiry",
-  },
-  {
     accessorKey: "phoneNumber",
     header: "Phone Number",
   },
   {
-    accessorKey: "siteProject",
-    header: "Site/Project",
+    accessorKey: "passportNumber",
+    header: "Passport Number",
+  },
+  {
+    accessorKey: "permitVisaExpiry",
+    header: "Expiry",
+    cell: ({ row }) => {
+      const raw = row.getValue("permitVisaExpiry");
+      const permitVisaExpiry = raw ? new Date(raw as string) : null;
+      return (
+        <div className="flex items-center gap-2 w-fit mr-8">
+          <div className="font-medium">
+            {permitVisaExpiry && !isNaN(permitVisaExpiry.getTime())
+              ? new Intl.DateTimeFormat("en-GB", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                }).format(permitVisaExpiry)
+              : "-"}
+          </div>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "status",

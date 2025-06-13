@@ -15,11 +15,11 @@ export default function Dashboard() {
       <PageHeader title="Dashboard" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-start">
-        <Card className="">
+        <Card className="hover:scale-102 duration-150 transition-all ease-in-and-out">
           <CardHeader>
             <CardTitle>WORKERS</CardTitle>
             <CardDescription className="font-normal text-sm">
-              The number of workers
+              // The number of workers
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
@@ -27,11 +27,11 @@ export default function Dashboard() {
             <Progress value={30} />
           </CardContent>
         </Card>
-        <Card className="">
+        <Card className="hover:scale-102 duration-150 transition-all ease-in-and-out">
           <CardHeader>
             <CardTitle>NEXT VISA EXPIRY</CardTitle>
             <CardDescription className="font-normal text-sm">
-              The next closest visa expiry
+              // The next closest visa expiry
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -41,15 +41,15 @@ export default function Dashboard() {
           <CardFooter className="font-normal text-sm">
             <p>John Wick</p> </CardFooter>
         </Card>
-        <Card className="col-spanx-2">
+        <Card className="col-spanx-2 hover:scale-102 duration-150 transition-all ease-in-and-out">
           <CardHeader>
             <CardTitle>WORKERS</CardTitle>
             <CardDescription className="font-normal text-sm">
-              The number of workers
+              // The number of workers
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
-            <p>100 out of 350</p>
+            <p>350 out of 350</p>
             <Progress value={100
             } />
           </CardContent>
