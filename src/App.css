@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'LemonMilk';
+  src: url('./assets/fonts/LEMONMILK-Medium.otf') format('opentype');
+  font-weight: light;
+  font-style: normal;
+}
+
+.font-lemon {
+  font-family: 'LemonMilk';
+  font-weight: lighter;
+}
+
 #root {
   max-width: 1280px;
   /* margin: 0 auto; */

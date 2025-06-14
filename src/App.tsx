@@ -7,11 +7,12 @@ import Dashboard from "./pages/Dashboard";
 import Documents from "./pages/Documents";
 import Payments from "./pages/Payments";
 import AddWorker from "./pages/AddWorker";
+import WorkerDetails from "./pages/WorkerDetails";
 
 function App() {
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen min-w-screen bg-background">
+      <div className="flex min-h-screen min-w-screen bg-background tracking-wide">
         <AppSidebar />
         <div className="pt-3 pl-3 xbg-white/20">
           <SidebarTrigger className="focus-visible:border-none focus-visible:outline-none " />
@@ -21,6 +22,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/" element={<Dashboard />} />
             <Route path="/workers" element={<Workers />} />
+            <Route path="/workers/:id" element={<WorkerDetails />} />
             <Route path="/documents" element={<Documents />} />
             <Route path="/payments" element={<Payments />} />
             <Route path="/workers/add" element={<AddWorker />} />

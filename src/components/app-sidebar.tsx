@@ -12,7 +12,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "./ui/sidebar";
-
 // Menu items.
 const items = [
   {
@@ -46,17 +45,26 @@ export function AppSidebar() {
     <Sidebar variant="floating">
       <SidebarContent>
         <SidebarHeader>
-          <h1 className="my-4 text-2xl font-bold text-white">FAME</h1>
-          {/* <SidebarTrigger className="absolute top-4 right-4" /> */}
+          {/* <img src="./assets/headerLogo.png" alt="Fame Logo" className="w-24 h-24" /> */}
+          <div className="flex flex-col my-4 font-lemon ">
+            <h1 className="text-2xl font-bold  text-[#22b9c7] tracking-wider">
+              FAME
+            </h1>
+            <p className="text-[10px] text-white">Development Resources</p>
+          </div>
         </SidebarHeader>
         <SidebarGroup>
           <SidebarGroupLabel>Home</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title} className="text-white" >
-                  <SidebarMenuButton asChild >
-                    <Link to={item.url} className="flex items-center gap-2 " onClick={() => setOpen(false)}>
+                <SidebarMenuItem key={item.title} className="text-white">
+                  <SidebarMenuButton asChild>
+                    <Link
+                      to={item.url}
+                      className="flex items-center gap-2 "
+                      onClick={() => setOpen(false)}
+                    >
                       <item.icon className="w-4 h-4 text-white" />
                       <span className="text-white">{item.title}</span>
                     </Link>
@@ -71,7 +79,10 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items2.map((item) => (
-                <SidebarMenuItem key={item.title} onClick={() => setOpen(false)}>
+                <SidebarMenuItem
+                  key={item.title}
+                  onClick={() => setOpen(false)}
+                >
                   <SidebarMenuButton asChild>
                     <Link
                       to={item.url}

@@ -31,6 +31,14 @@ export const addWorker = async (worker: Worker) => {
   return data;
 };
 
+export const getWorker = async (id: string) => {
+  const response = await fetch(
+    `https://express-famedevres.onrender.com/worker/${id}`
+  );
+  const data = await response.json();
+  return data;
+};
+
 export const deleteWorker = async (id: string) => {
   const response = await fetch(
     `https://express-famedevres.onrender.com/worker/${id}`,

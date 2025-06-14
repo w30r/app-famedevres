@@ -61,26 +61,6 @@ export const columns: ColumnDef<Worker>[] = [
     header: "Passport Number",
   },
   {
-    accessorKey: "RMPaid",
-    header: "Amount Paid (RM)",
-    cell: ({ row }) => {
-      return (
-        <>
-          <Progress
-            className="mt-2"
-            value={((row.getValue("RMPaid") as number) / 5000) * 100}
-          />
-          <div className="flex justify-between">
-            <p>
-              RM{(row.getValue("RMPaid") as number).toLocaleString()} / RM5,000
-            </p>
-            <p></p>
-          </div>
-        </>
-      );
-    },
-  },
-  {
     accessorKey: "permitVisaExpiry",
     header: "Expiry",
     cell: ({ row }) => {
@@ -147,6 +127,39 @@ export const columns: ColumnDef<Worker>[] = [
                 Overdue
               </Badge>
             )}
+          </div>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "RMPaid",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="secondary"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="bg-white"
+        >
+          Amount Paid (RM)
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const RMPaid = row.getValue("RMPaid") as number;
+      const progressValue = ((RMPaid / 5000) * 100).toFixed(2);
+      return (
+        <div className="flex flex-col text-xs">
+          <Progress
+            className=""
+            value={Number(progressValue)}
+          />
+          <div className="flex justify-between">
+            <p>
+              RM{RMPaid.toLocaleString()} / RM5,000
+            </p>
+            <p>{Number(progressValue).toFixed(2)}%</p>
           </div>
         </div>
       );
