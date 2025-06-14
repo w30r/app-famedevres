@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { addWorker, type Worker } from "@/services/api";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "@/components/PageHeader";
+import { Button } from "@/components/ui/button";
 
 export default function AddWorker() {
   const navigate = useNavigate();
@@ -22,7 +23,6 @@ export default function AddWorker() {
     setOpen(!open);
   }, []);
 
-
   const handleSubmit = async (worker: Worker) => {
     try {
       await addWorker(worker);
@@ -37,7 +37,10 @@ export default function AddWorker() {
       <div className="self-start">
         <PageHeader title="Add Worker" />
       </div>
-      <form onSubmit={(e) => handleSubmit(worker)} className="flex flex-col gap-4 font-normal">
+      <form
+        onSubmit={() => handleSubmit(worker)}
+        className="flex flex-col gap-4 font-normal bg-whixte/20 w-1/2 "
+      >
         <div className="bg-whixte/20 flex flex-col gap-2">
           <label className="text-sm font-bold place-self-start">Name</label>
           <Input
@@ -49,7 +52,9 @@ export default function AddWorker() {
           />
         </div>
         <div className="bg-whixte/20 flex flex-col gap-2">
-          <label className="text-sm font-bold place-self-start">Phone Number</label>
+          <label className="text-sm font-bold place-self-start">
+            Phone Number
+          </label>
           <Input
             placeholder="Phone Number"
             value={worker.phoneNumber}
@@ -62,7 +67,9 @@ export default function AddWorker() {
           />
         </div>
         <div className="bg-whixte/20 flex flex-col gap-2">
-          <label className="text-sm font-bold place-self-start">Passport Number</label>
+          <label className="text-sm font-bold place-self-start">
+            Passport Number
+          </label>
           <Input
             placeholder="Passport Number"
             value={worker.passportNumber}
@@ -75,7 +82,9 @@ export default function AddWorker() {
           />
         </div>
         <div className="bg-whixte/20 flex flex-col gap-2">
-          <label className="text-sm font-bold place-self-start">Permit/Visa Expiry</label>
+          <label className="text-sm font-bold place-self-start">
+            Permit/Visa Expiry
+          </label>
           <Input
             placeholder="Permit/Visa Expiry"
             type="date"
@@ -116,10 +125,15 @@ export default function AddWorker() {
           />
         </div> */}
       </form>
-      <div>
-        <button type="submit" className="btn btn-primary mt-12" onClick={() => handleSubmit(worker)}>
+      <div className="flex">
+        <Button
+          type="submit"
+          variant="default"
+          className="mt-12 text-sm h-auto text-primary place-self-start"
+          onClick={() => handleSubmit(worker)}
+        >
           Add Worker
-        </button>
+        </Button>
       </div>
     </div>
   );

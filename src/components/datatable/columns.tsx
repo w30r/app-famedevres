@@ -7,6 +7,7 @@ import { ArrowUpDown } from "lucide-react";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Worker = {
+  _id: string;
   id: number;
   name: string;
   photo: string | null;
@@ -151,32 +152,52 @@ export const columns: ColumnDef<Worker>[] = [
       );
     },
   },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => {
-      const status = row.getValue("status") as
-        | "Active"
-        | "Transferred"
-        | "Left";
+  // {
+  //   accessorKey: "status",
+  //   header: "Status",
+  //   cell: ({ row }) => {
+  //     const status = row.getValue("status") as
+  //       | "Active"
+  //       | "Transferred"
+  //       | "Left";
 
-      const statusVariantMap: Record<
-        Worker["status"],
-        "default" | "outline" | "destructive"
-      > = {
-        Active: "default",
-        Transferred: "outline",
-        Left: "destructive",
-      };
+  //     const statusVariantMap: Record<
+  //       Worker["status"],
+  //       "default" | "outline" | "destructive"
+  //     > = {
+  //       Active: "default",
+  //       Transferred: "outline",
+  //       Left: "destructive",
+  //     };
 
-      return (
-        <Badge
-          className="text-right font-medium"
-          variant={statusVariantMap[status]}
-        >
-          {status}
-        </Badge>
-      );
-    },
-  },
+  //     return (
+  //       <Badge
+  //         className="text-right font-medium"
+  //         variant={statusVariantMap[status]}
+  //       >
+  //         {status}
+  //       </Badge>
+  //     );
+  //   },
+  // },
+  // {
+  //   id: "actions",
+  //   header: "Actions",
+  //   cell: ({ row }) => {
+  //     const worker = row.original;
+  //     return (
+  //       <div className="font-medium">
+  //         <Button
+  //           variant="default"
+  //           onClick={() => {
+  //             deleteWorker(worker._id);
+  //           }}
+  //         >
+  //           {/* <Trash className="text-red-500 " /> */}
+  //           <p className="text-red-500">{worker._id}</p>
+  //         </Button>
+  //       </div>
+  //     );
+  //   },
+  // },
 ];

@@ -3,36 +3,57 @@ import { DataTable } from "@/components/datatable/data-table";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
-import { Plus } from "lucide-react";
+import { deleteWorker, getWorkers } from "@/services/api";
+import type { ColumnDef } from "@tanstack/react-table";
+import { Plus, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 
 function Workers() {
   const { setOpen } = useSidebar();
+  const [loading, setLoading] = useState(true);
+
+  const handleDelete = async (id: string) => {
+    await deleteWorker(id);
+    const data = await getWorkers();
+    setData(data);
+  };
+
+  const columnz: ColumnDef<Worker>[] = [
+    ...columns,
+    {
+      id: "actions",
+      header: "Actions",
+      cell: ({ row }) => {
+        const worker = row.original;
+        return (
+          <Button onClick={() => handleDelete(worker._id)}>
+            <Trash className="h-4 w-4 text-red-500" />
+            <p className="text-red-500">Delete</p>
+          </Button>
+        );
+      },
+    },
+  ];
 
   const [data, setData] = useState<Worker[]>([]);
   useEffect(() => {
     const fetchWorkers = async () => {
       try {
-        const response = await fetch(
-          "https://express-famedevres.onrender.com/workers"
-        );
-        const data = await response.json();
+        const data = await getWorkers();
         setData(data);
       } catch (error) {
         console.error("Error fetching workers:", error);
       }
     };
     fetchWorkers();
+    setLoading(false);
   }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       const fetchWorkers = async () => {
         try {
-          const response = await fetch(
-            "https://express-famedevres.onrender.com/workers"
-          );
-          const data = await response.json();
+          const data = await getWorkers();
           setData(data);
         } catch (error) {
           console.error("Error fetching workers:", error);
@@ -57,7 +78,11 @@ function Workers() {
         <Plus />
       </Button>
       <div>
-        <DataTable columns={columns} data={data} />
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <DataTable columns={columnz} data={data} />
+        )}
       </div>
     </div>
   );
