@@ -4,9 +4,8 @@ import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
 import { deleteWorker, getWorkers } from "@/services/api";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import type { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, Plus, RefreshCw, Trash } from "lucide-react";
+import { Trash, Info, Plus, RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -26,32 +25,36 @@ function Workers() {
     ...columns,
     {
       id: "actions",
-      header: "Actions",
+      header: " ",
       cell: ({ row }) => {
         const worker = row.original;
         return (
-          // <Button onClick={() => handleDelete(worker._id)}>
-          //   <Trash className="h-4 w-4 text-red-500" />
-          //   <p className="text-red-500">Delete</p>
-          // </Button>
-          <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
+          <div className="flex gap-2">
+            <Button variant="ghost" size="icon" onClick={() => navigate(`/workers/${worker._id}`)}>
+              <Info className="h-4 w-4 text-blue-500/50" />
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(worker._id)}
-            >
-              Copy ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => navigate(`/workers/${worker._id}`)}>View worker</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleDelete(worker._id)}>Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            <Button variant="ghost" size="icon" onClick={() => handleDelete(worker._id)}>
+              <Trash className="h-4 w-4 text-red-500/50" />
+            </Button>
+          </div>
+        //   <DropdownMenu>
+        //   <DropdownMenuTrigger asChild>
+        //     <Button variant="ghost" className="h-8 w-8 p-0">
+        //       <span className="sr-only">Open menu</span>
+        //       <MoreHorizontal className="h-4 w-4" />
+        //     </Button>
+        //   </DropdownMenuTrigger>
+        //   <DropdownMenuContent align="end">
+        //     <DropdownMenuItem
+        //       onClick={() => navigator.clipboard.writeText(worker._id)}
+        //     >
+        //       Copy ID
+        //     </DropdownMenuItem>
+        //     <DropdownMenuSeparator />
+        //     <DropdownMenuItem onClick={() => navigate(`/workers/${worker._id}`)}>View worker</DropdownMenuItem>
+        //     <DropdownMenuItem onClick={() => handleDelete(worker._id)}>Delete</DropdownMenuItem>
+        //   </DropdownMenuContent>
+        // </DropdownMenu>
         );
       },
     },

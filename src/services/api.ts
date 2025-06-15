@@ -31,6 +31,22 @@ export const addWorker = async (worker: Worker) => {
   return data;
 };
 
+export const updateRMPaid = async (id: string, RMPaid: number) => {
+  const response = await fetch(
+    `https://express-famedevres.onrender.com/worker/${id}/updateRMPaid`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ RMPaid }),
+    }
+  );
+  const data = await response.json();
+  console.log(`PUT ${id}`);
+  return data;
+};
+
 export const getWorker = async (id: string) => {
   const response = await fetch(
     `https://express-famedevres.onrender.com/worker/${id}`

@@ -148,7 +148,7 @@ export const columns: ColumnDef<Worker>[] = [
     },
     cell: ({ row }) => {
       const RMPaid = row.getValue("RMPaid") as number;
-      const progressValue = ((RMPaid / 5000) * 100).toFixed(2);
+      const progressValue = ((RMPaid / 4300) * 100).toFixed(2);
       return (
         <div className="flex flex-col text-xs">
           <Progress
@@ -157,7 +157,7 @@ export const columns: ColumnDef<Worker>[] = [
           />
           <div className="flex justify-between">
             <p>
-              RM{RMPaid.toLocaleString()} / RM5,000
+              RM{RMPaid.toLocaleString()} <span className="text-xs text-primary/50 italic">/ RM4,300</span>
             </p>
             <p>{Number(progressValue).toFixed(2)}%</p>
           </div>

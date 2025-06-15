@@ -5,6 +5,7 @@ import { addWorker, type Worker } from "@/services/api";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
+import { DatePicker } from "@/components/date-picker";
 
 export default function AddWorker() {
   const navigate = useNavigate();
@@ -47,7 +48,10 @@ export default function AddWorker() {
             placeholder="Name"
             value={worker.name}
             onChange={(event) =>
-              setWorker((prev) => ({ ...prev, name: event.target.value }))
+              setWorker((prev) => ({
+                ...prev,
+                name: event.target.value.toUpperCase(),
+              }))
             }
           />
         </div>
@@ -58,12 +62,17 @@ export default function AddWorker() {
           <Input
             placeholder="Phone Number"
             value={worker.phoneNumber}
-            onChange={(event) =>
+            type="tel"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            className="w-1/2"
+            onChange={(event) => {
+              const value = event.target.value.replace(/\D/g, "");
               setWorker((prev) => ({
                 ...prev,
-                phoneNumber: event.target.value,
-              }))
-            }
+                phoneNumber: value,
+              }));
+            }}
           />
         </div>
         <div className="bg-whixte/20 flex flex-col gap-2">
@@ -72,21 +81,42 @@ export default function AddWorker() {
           </label>
           <Input
             placeholder="Passport Number"
-            value={worker.passportNumber}
+            value={worker.passportNumber.toUpperCase()}
+            type="text"
+            className="w-1/2"
             onChange={(event) =>
               setWorker((prev) => ({
                 ...prev,
-                passportNumber: event.target.value,
+                passportNumber: event.target.value.toUpperCase(),
               }))
             }
           />
         </div>
         <div className="bg-whixte/20 flex flex-col gap-2">
           <label className="text-sm font-bold place-self-start">
-            Permit/Visa Expiry
+            Passport Expiry
           </label>
           <Input
             placeholder="Permit/Visa Expiry"
+            type="date"
+            className="w-1/2"
+            value={worker.permitVisaExpiry}
+            onChange={(event) =>
+              setWorker((prev) => ({
+                ...prev,
+                permitVisaExpiry: event.target.value,
+              }))
+            }
+          />
+          {/* <DatePicker /> */}
+        </div>
+        <div className="bg-whixte/20 flex flex-col gap-2">
+          <label className="text-sm font-bold place-self-start">
+            Visa Expiry
+          </label>
+          <Input
+            placeholder="Permit/Visa Expiry"
+            className="w-1/2"
             type="date"
             value={worker.permitVisaExpiry}
             onChange={(event) =>
@@ -96,12 +126,14 @@ export default function AddWorker() {
               }))
             }
           />
+          {/* <DatePicker /> */}
         </div>
-        {/* <div className="bg-whixte/20 flex flex-col gap-2">
+        <div className="bg-whixte/20 flex flex-col gap-2">
           <label className="text-sm font-bold place-self-start">RM Paid</label>
           <Input
             placeholder="RM Paid"
             type="number"
+            className="w-1/2"
             value={worker.RMPaid}
             onChange={(event) =>
               setWorker((prev) => ({
@@ -110,7 +142,7 @@ export default function AddWorker() {
               }))
             }
           />
-        </div> */}
+        </div>
         {/* <div className="bg-whixte/20 flex flex-col gap-2">
           <label className="text-sm font-bold place-self-start">Status</label>
           <Input
@@ -129,10 +161,11 @@ export default function AddWorker() {
         <Button
           type="submit"
           variant="default"
-          className="mt-12 text-sm h-auto text-primary place-self-start"
+          size="lg"
+          className="mt-12 text-sm h-auto text-primary place-self-start   "
           onClick={() => handleSubmit(worker)}
         >
-          Add Worker
+          <p className="text-sm">Add Worker</p>
         </Button>
       </div>
     </div>
