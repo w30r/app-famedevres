@@ -48,33 +48,33 @@ export const columns: ColumnDef<Worker>[] = [
       );
     },
   },
-  {
-    accessorKey: "phoneNumber",
-    header: "Phone Number",
-    cell: ({ row }) => {
-      const phoneNumber = row.getValue("phoneNumber") as string;
-      return <p>{phoneNumber.slice(0, 3) + "-" + phoneNumber.slice(3)}</p>;
-    },
-  },
+  // {
+  //   accessorKey: "phoneNumber",
+  //   header: "Phone Number",
+  //   cell: ({ row }) => {
+  //     const phoneNumber = row.getValue("phoneNumber") as string;
+  //     return <p>{phoneNumber.slice(0, 3) + "-" + phoneNumber.slice(3)}</p>;
+  //   },
+  // },
   {
     accessorKey: "passportNumber",
     header: "Passport Number",
   },
   {
-    accessorKey: "permitVisaExpiry",
+    accessorKey: "passportExpiry",
     header: "Ppt. Expiry Date",
     cell: ({ row }) => {
-      const raw = row.getValue("permitVisaExpiry");
-      const permitVisaExpiry = raw ? new Date(raw as string) : null;
+      const raw = row.getValue("passportExpiry");
+      const passportExpiry = raw ? new Date(raw as string) : null;
       return (
         <div className="flex items-center gap-2 w-fit mr-8">
           <div className="font-medium">
-            {permitVisaExpiry && !isNaN(permitVisaExpiry.getTime())
+            {passportExpiry && !isNaN(passportExpiry.getTime())
               ? new Intl.DateTimeFormat("en-GB", {
                   day: "2-digit",
                   month: "short",
                   year: "numeric",
-                }).format(permitVisaExpiry)
+                }).format(passportExpiry)
               : "-"}
           </div>
         </div>
@@ -82,7 +82,7 @@ export const columns: ColumnDef<Worker>[] = [
     },
   },
   {
-    accessorKey: "daysUntilPermitVisaExpiry",
+    accessorKey: "passportExpiry",
     header: ({ column }) => {
       return (
         <Button
@@ -96,14 +96,14 @@ export const columns: ColumnDef<Worker>[] = [
       );
     },
     cell: ({ row }) => {
-      const raw = row.getValue("permitVisaExpiry");
-      const permitVisaExpiry = raw ? new Date(raw as string) : null;
+      const raw = row.getValue("passportExpiry");
+      const passportExpiry = raw ? new Date(raw as string) : null;
       const now = new Date();
       const msPerDay = 1000 * 60 * 60 * 24;
       let diff = 0;
-      if (permitVisaExpiry && !isNaN(permitVisaExpiry.getTime())) {
+      if (passportExpiry && !isNaN(passportExpiry.getTime())) {
         diff = Math.ceil(
-          (permitVisaExpiry.getTime() - now.getTime()) / msPerDay
+          (passportExpiry.getTime() - now.getTime()) / msPerDay
         );
       }
       const years = Math.floor(diff / 365);
@@ -115,11 +115,83 @@ export const columns: ColumnDef<Worker>[] = [
             {diff > 0 ? (
               <>
                 {years > 0
-                  ? `${years} years`
+                  ? `${years} year(s)`
                   : months > 0
-                  ? `${months} months`
+                  ? `${months} month(s)`
                   : days > 0
-                  ? `${days} days`
+                  ? `${days} day(s)`
+                  : ""}
+              </>
+            ) : (
+              <Badge className="text-right font-medium" variant="destructive">
+                Overdue
+              </Badge>
+            )}
+          </div>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "visaExpiry",
+    header: "Visa Expiry Date",
+    cell: ({ row }) => {
+      const raw = row.getValue("visaExpiry");
+      const visaExpiry = raw ? new Date(raw as string) : null;
+      return (
+        <div className="flex items-center gap-2 w-fit mr-8">
+          <div className="font-medium">
+            {visaExpiry && !isNaN(visaExpiry.getTime())
+              ? new Intl.DateTimeFormat("en-GB", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                }).format(visaExpiry)
+              : "-"}
+          </div>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "visaExpiry",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="secondary"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="bg-white"
+        >
+          Visa Exp In
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const raw = row.getValue("visaExpiry");
+      const visaExpiry = raw ? new Date(raw as string) : null;
+      const now = new Date();
+      const msPerDay = 1000 * 60 * 60 * 24;
+      let diff = 0;
+      if (visaExpiry && !isNaN(visaExpiry.getTime())) {
+        diff = Math.ceil(
+          (visaExpiry.getTime() - now.getTime()) / msPerDay
+        );
+      }
+      const years = Math.floor(diff / 365);
+      const months = Math.floor((diff % 365) / 30);
+      const days = diff % 30;
+      return (
+        <div className="flex items-center gap-2 w-fit mr-8">
+          <div className="font-medium">
+            {diff > 0 ? (
+              <>
+                {years > 0
+                  ? `${years} year(s)`
+                  : months > 0
+                  ? `${months} month(s)`
+                  : days > 0
+                  ? `${days} day(s)`
                   : ""}
               </>
             ) : (

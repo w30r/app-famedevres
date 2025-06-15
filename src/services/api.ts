@@ -1,11 +1,17 @@
 export interface Worker {
-  id?: number;
   name: string;
   phoneNumber: string;
-  status: string;
   passportNumber: string;
-  permitVisaExpiry: string;
+  passportExpiry: Date;
+  visaExpiry: Date;
   RMPaid: number;
+  status: string;
+  transactions: {
+    _id: string;
+    date: Date;
+    amount: number;
+    note: string;
+  }[];
 }
 
 export const getWorkers = async () => {
@@ -31,7 +37,7 @@ export const addWorker = async (worker: Worker) => {
   return data;
 };
 
-export const updateRMPaid = async (id: string, RMPaid: number) => {
+export const addRMPaid = async (id: string, RMPaid: number, note: string) => {
   const response = await fetch(
     `https://express-famedevres.onrender.com/worker/${id}/updateRMPaid`,
     {
@@ -39,7 +45,7 @@ export const updateRMPaid = async (id: string, RMPaid: number) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ RMPaid }),
+      body: JSON.stringify({ RMPaid, note }),
     }
   );
   const data = await response.json();
