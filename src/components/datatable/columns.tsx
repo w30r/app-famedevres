@@ -62,7 +62,7 @@ export const columns: ColumnDef<Worker>[] = [
   },
   {
     accessorKey: "permitVisaExpiry",
-    header: "Expiry",
+    header: "Ppt. Expiry Date",
     cell: ({ row }) => {
       const raw = row.getValue("permitVisaExpiry");
       const permitVisaExpiry = raw ? new Date(raw as string) : null;
@@ -90,7 +90,7 @@ export const columns: ColumnDef<Worker>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className="bg-white"
         >
-          Days until Expiry
+          Ppt Exp In
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

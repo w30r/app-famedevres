@@ -8,15 +8,33 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Trash, Info, Plus, RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 function Workers() {
   const { setOpen } = useSidebar();
   const [loading, setLoading] = useState(true);
 
-  const handleDelete = async (id: string) => {
-    await deleteWorker(id);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [selectedWorkerId, setSelectedWorkerId] = useState<string | null>(null);
+  const [selectedWorkerName, setSelectedWorkerName] = useState<string | null>(null);
+
+  const handleDelete = async () => {
+    if (!selectedWorkerId) return;
+    await deleteWorker(selectedWorkerId);
     const data = await getWorkers();
     setData(data);
+    setDeleteDialogOpen(false);
+    setSelectedWorkerId(null);
   };
 
   const navigate = useNavigate();
@@ -30,31 +48,43 @@ function Workers() {
         const worker = row.original;
         return (
           <div className="flex gap-2">
-            <Button variant="ghost" size="icon" onClick={() => navigate(`/workers/${worker._id}`)}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate(`/workers/${worker._id}`)}
+            >
               <Info className="h-4 w-4 text-blue-500/50" />
             </Button>
-            <Button variant="ghost" size="icon" onClick={() => handleDelete(worker._id)}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                setSelectedWorkerId(worker._id);
+                setSelectedWorkerName(worker.name);
+                setDeleteDialogOpen(true);
+              }}
+            >
               <Trash className="h-4 w-4 text-red-500/50" />
             </Button>
           </div>
-        //   <DropdownMenu>
-        //   <DropdownMenuTrigger asChild>
-        //     <Button variant="ghost" className="h-8 w-8 p-0">
-        //       <span className="sr-only">Open menu</span>
-        //       <MoreHorizontal className="h-4 w-4" />
-        //     </Button>
-        //   </DropdownMenuTrigger>
-        //   <DropdownMenuContent align="end">
-        //     <DropdownMenuItem
-        //       onClick={() => navigator.clipboard.writeText(worker._id)}
-        //     >
-        //       Copy ID
-        //     </DropdownMenuItem>
-        //     <DropdownMenuSeparator />
-        //     <DropdownMenuItem onClick={() => navigate(`/workers/${worker._id}`)}>View worker</DropdownMenuItem>
-        //     <DropdownMenuItem onClick={() => handleDelete(worker._id)}>Delete</DropdownMenuItem>
-        //   </DropdownMenuContent>
-        // </DropdownMenu>
+          //   <DropdownMenu>
+          //   <DropdownMenuTrigger asChild>
+          //     <Button variant="ghost" className="h-8 w-8 p-0">
+          //       <span className="sr-only">Open menu</span>
+          //       <MoreHorizontal className="h-4 w-4" />
+          //     </Button>
+          //   </DropdownMenuTrigger>
+          //   <DropdownMenuContent align="end">
+          //     <DropdownMenuItem
+          //       onClick={() => navigator.clipboard.writeText(worker._id)}
+          //     >
+          //       Copy ID
+          //     </DropdownMenuItem>
+          //     <DropdownMenuSeparator />
+          //     <DropdownMenuItem onClick={() => navigate(`/workers/${worker._id}`)}>View worker</DropdownMenuItem>
+          //     <DropdownMenuItem onClick={() => handleDelete(worker._id)}>Delete</DropdownMenuItem>
+          //   </DropdownMenuContent>
+          // </DropdownMenu>
         );
       },
     },
@@ -110,6 +140,30 @@ function Workers() {
           <DataTable columns={columnz} data={data} />
         )}
       </div>
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete {selectedWorkerName}?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete this
+              worker and remove their data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setDeleteDialogOpen(false)}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className="text-red-500"
+              onClick={handleDelete}
+              disabled={!selectedWorkerId}
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
