@@ -60,6 +60,7 @@ export default function WorkerDetails() {
 
     setWorker(data);
     setRMPaid(0);
+    setNote("");
   };
 
   return (
@@ -282,7 +283,7 @@ export default function WorkerDetails() {
                         })}
                       </p>
                       <p className="text-xs text-primary/50">
-                        {"//  "}{transaction.note ? transaction.note : "-"}
+                        {"//  " + (transaction.note ? transaction.note : "-")}
                       </p>
                     </div>
                   ))}

@@ -5,19 +5,19 @@ import { addWorker, type Worker } from "@/services/api";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
-import { DatePicker } from "@/components/date-picker";
 
 export default function AddWorker() {
   const navigate = useNavigate();
   const { setOpen, open } = useSidebar();
   const [worker, setWorker] = useState<Worker>({
-    // id: 5,
     name: "",
     phoneNumber: "",
     status: "Active",
     passportNumber: "",
-    permitVisaExpiry: "",
+    passportExpiry: new Date(),
+    visaExpiry: new Date(),
     RMPaid: 0,
+    transactions: [],
   });
 
   useEffect(() => {
@@ -97,14 +97,14 @@ export default function AddWorker() {
             Passport Expiry
           </label>
           <Input
-            placeholder="Permit/Visa Expiry"
+            placeholder="Passport Expiry"
             type="date"
             className="w-1/2"
-            value={worker.permitVisaExpiry}
+            value={worker.passportExpiry.toISOString().substring(0, 10)}
             onChange={(event) =>
               setWorker((prev) => ({
                 ...prev,
-                permitVisaExpiry: event.target.value,
+                passportExpiry: new Date(event.target.value),
               }))
             }
           />
@@ -115,14 +115,14 @@ export default function AddWorker() {
             Visa Expiry
           </label>
           <Input
-            placeholder="Permit/Visa Expiry"
+            placeholder="Visa Expiry"
             className="w-1/2"
             type="date"
-            value={worker.permitVisaExpiry}
+            value={worker.visaExpiry.toISOString().substring(0, 10)}
             onChange={(event) =>
               setWorker((prev) => ({
                 ...prev,
-                permitVisaExpiry: event.target.value,
+                visaExpiry: new Date(event.target.value),
               }))
             }
           />

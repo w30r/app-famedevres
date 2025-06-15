@@ -37,12 +37,12 @@ export const columns: ColumnDef<Worker>[] = [
     cell: ({ row }) => {
       const name = row.getValue("name") as string;
       return (
-        <div className="flex items-center gap-2 w-fit mr-8">
-          <img
+        <div className="flex items-center ml-4 gap-2 w-fit mr-8">
+          {/* <img
             alt="Bangladesh"
             src="http://purecatamphetamine.github.io/country-flag-icons/3x2/BD.svg"
             className="w-6 h-auto rounded-xs"
-          />
+          /> */}
           <div className="font-medium">{name}</div>
         </div>
       );
