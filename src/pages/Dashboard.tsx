@@ -9,10 +9,13 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
-import { getWorkers } from "@/services/api";
+import { getWorkers, type Worker } from "@/services/api";
+import CountUp from "@/components/CountUp";
 
 export default function Dashboard() {
-  const [worker, setWorker] = useState([]);
+  const [worker, setWorker] = useState<Worker[]>([]);
+  const [totalPaid, setTotalPaid] = useState(0);
+  const [loadingTotalkPaid, setLoadingTotalPaid] = useState(true);
 
   useEffect(() => {
     const fetchWorker = async () => {
@@ -23,50 +26,73 @@ export default function Dashboard() {
         console.error("Error fetching workers:", error);
       }
     };
+
     fetchWorker();
   }, []);
+
+  useEffect(() => {
+    const calcTotalPaid = () => {
+      let totalPaid = 0;
+      try {
+        worker.forEach((worker) => {
+          totalPaid += worker?.RMPaid;
+        });
+      } catch (error) {
+        console.error("Error calculating total paid:", error);
+      } finally {
+        setTotalPaid(totalPaid);
+      }
+    };
+    setLoadingTotalPaid(false);
+    calcTotalPaid();
+  }, [worker]);
 
   return (
     <div className="text-xl font-bold bxg-white/20 h-full w-full p-12 flex flex-col">
       <PageHeader title="Dashboard" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-start">
-        <Card className="hover:scale-102 duration-150 transition-all ease-in-and-out">
+        <Card className="text-sm font-normal">
           <CardHeader>
-            <div>
-              <h3 className="-mb-2">NEXT VISA EXPIRY</h3>
-              <p className="font-normal text-sm text-primary/50">
-                // The next closest visa expiry
-              </p>
-            </div>
+            <p className="text-lg">Workers</p>
           </CardHeader>
-          <CardContent>
-            <p>20 JUNE 2025</p>
-            <p className="font-normal text-sm text-white/50">
-              (7 hari selepas)
-            </p>
-          </CardContent>
-          <CardFooter className="font-normal text-sm">
-            <p>John Wick</p>{" "}
-          </CardFooter>
-        </Card>
-        <Card className="col-spanx-2 hover:scale-102 duration-150 transition-all ease-in-and-out">
-          <CardHeader>
-            <h3>WORKERS</h3>
-            <p className="font-normal text-sm">// The number of workers</p>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-2">
-            <p>350 out of 350</p>
-            <Progress value={100} />
+          <CardContent className="-mt-4">
+            <CountUp
+              className="count-up-text text-5xl font-bold "
+              from={0}
+              to={worker.length}
+              separator=","
+              direction="up"
+            />
           </CardContent>
         </Card>
-        <Card className="hover:scale-102 duration-150 transition-all ease-in-and-out">
+        <Card className="text-sm font-normal">
           <CardHeader>
-            <h3>WORKERS</h3>
-            <p className="font-normal text-sm">// The number of workers</p>
+            <p className="text-lg">Total Paid</p>
           </CardHeader>
-          <CardContent className="flex flex-col gap-2">
-            <p className="text-4xl font-bold">{worker.length}</p>
+          <CardContent className="-mt-4">
+            {!loadingTotalkPaid ? (
+              // <h1 className="font-bold">
+              //   RM
+              //   {totalPaid.toLocaleString(undefined, {
+              //     minimumFractionDigits: 2,
+              //     maximumFractionDigits: 2,
+              //   })}
+              // </h1>
+              <div className="flex">
+                <p className="font-bold text-5xl">RM</p>
+                <CountUp
+                  from={0}
+                  to={totalPaid}
+                  separator=","
+                  direction="up"
+                  duration={0.5}
+                  className="count-up-text font-bold text-5xl"
+                />
+              </div>
+            ) : (
+              <h1 className="font-bold">RM0.00</h1>
+            )}
           </CardContent>
         </Card>
       </div>

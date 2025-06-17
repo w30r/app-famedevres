@@ -247,7 +247,7 @@ export default function WorkerDetails() {
             </div>
             <div className="*TIMELINE* bg-whixte/20 p-8 rounded-lg flex flex-col items-center text-md font-normal text-white border-1 border-white/20 gap-4">
               <PageHeader title="Timeline" />
-              <div className="relative flex flex-col gap-2 w-1/2 pl-6">
+              <div className="relative flex flex-col gap-2 w-full md:w-1/3 w-1/2 pl-6">
                 {/* vertical line */}
                 <div className="absolute left-2 top-0 bottom-0 w-px bg-white/20" />
 
@@ -277,10 +277,13 @@ export default function WorkerDetails() {
                       </p>
                       <p className="text-lg">
                         RM
-                        {(transaction.amount as number).toLocaleString("en-GB", {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
+                        {(transaction.amount as number).toLocaleString(
+                          "en-GB",
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }
+                        )}
                       </p>
                       <p className="text-xs text-primary/50">
                         {"//  " + (transaction.note ? transaction.note : "-")}

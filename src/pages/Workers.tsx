@@ -26,7 +26,9 @@ function Workers() {
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedWorkerId, setSelectedWorkerId] = useState<string | null>(null);
-  const [selectedWorkerName, setSelectedWorkerName] = useState<string | null>(null);
+  const [selectedWorkerName, setSelectedWorkerName] = useState<string | null>(
+    null
+  );
 
   const handleDelete = async () => {
     if (!selectedWorkerId) return;
