@@ -34,7 +34,7 @@ export default function WorkerDetails() {
 
         setWorker(worker);
       } catch (error) {
-        setError("Error fetching worker");
+        setError(`Error fetching worker, ${error}`);
       } finally {
         setLoading(false);
       }
@@ -251,45 +251,49 @@ export default function WorkerDetails() {
                 {/* vertical line */}
                 <div className="absolute left-2 top-0 bottom-0 w-px bg-white/20" />
 
-                {worker?.transactions
-                  ?.slice()
-                  .reverse()
-                  .map((transaction) => (
-                    <div
-                      key={transaction._id}
-                      className="relative flex flex-col items-start bg-red-50x0/50 p-2 border border-white/20 rounded-lg"
-                    >
-                      {/* dot */}
-                      <div className="absolute -left-[25px] top-[35px] w-3 h-3 rounded-full bg-white border border-primary" />
+                {!loading ? (
+                  worker?.transactions
+                    ?.slice()
+                    .reverse()
+                    .map((transaction) => (
+                      <div
+                        key={transaction._id}
+                        className="relative flex flex-col items-start bg-red-50x0/50 p-2 border border-white/20 rounded-lg"
+                      >
+                        {/* dot */}
+                        <div className="absolute -left-[25px] top-[35px] w-3 h-3 rounded-full bg-white border border-primary" />
 
-                      <p className="text-xs text-primary/50">
-                        {new Intl.DateTimeFormat("en-GB", {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                          hour: "numeric",
-                          minute: "numeric",
-                          hour12: true,
-                          timeZone: "Asia/Kuala_Lumpur",
-                        }).format(
-                          new Date(transaction.date as unknown as string)
-                        )}
-                      </p>
-                      <p className="text-lg">
-                        RM
-                        {(transaction.amount as number).toLocaleString(
-                          "en-GB",
-                          {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          }
-                        )}
-                      </p>
-                      <p className="text-xs text-primary/50">
-                        {"//  " + (transaction.note ? transaction.note : "-")}
-                      </p>
-                    </div>
-                  ))}
+                        <p className="text-xs text-primary/50">
+                          {new Intl.DateTimeFormat("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: true,
+                            timeZone: "Asia/Kuala_Lumpur",
+                          }).format(
+                            new Date(transaction.date as unknown as string)
+                          )}
+                        </p>
+                        <p className="text-lg">
+                          RM
+                          {(transaction.amount as number).toLocaleString(
+                            "en-GB",
+                            {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }
+                          )}
+                        </p>
+                        <p className="text-xs text-primary/50">
+                          {"//  " + (transaction.note ? transaction.note : "-")}
+                        </p>
+                      </div>
+                    ))
+                ) : (
+                  <p className="text-sm text-primary">No transactions</p>
+                )}
               </div>
             </div>
           </div>
