@@ -1,4 +1,10 @@
-import { BanknoteArrowDown, FileText, Home, UsersRound } from "lucide-react";
+import {
+  BanknoteArrowDown,
+  Cross,
+  FileText,
+  Home,
+  UsersRound,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Sidebar,
@@ -28,9 +34,9 @@ const items2 = [
     icon: UsersRound,
   },
   {
-    title: "Payments",
-    url: "/payments",
-    icon: BanknoteArrowDown,
+    title: "Medical",
+    url: "/medical",
+    icon: Cross,
   },
   {
     title: "Documents",

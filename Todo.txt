@@ -1,3 +1,6 @@
 [x] Passport Number, pPt expiry, visa expiry date
 [x] RM4300 
-[] services lain (grab, etc)
+[x] services lain (grab, etc)
+
+Medical, how?
+- 3 mths before visa exp = need to do medical.

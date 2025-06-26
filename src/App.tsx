@@ -8,13 +8,15 @@ import Documents from "./pages/Documents";
 import Payments from "./pages/Payments";
 import AddWorker from "./pages/AddWorker";
 import WorkerDetails from "./pages/WorkerDetails";
+import Medical from "./pages/Medical";
+import BulkAddWorker from "./pages/BulkAddWorker";
 
 function App() {
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen min-w-screen bg-background tracking-wide">
+      <div className="relative flex min-h-screen min-w-screen bg-background tracking-wide">
         <AppSidebar />
-        <div className="pt-3 pl-3 xbg-white/20">
+        <div className="fixed pt-3 pl-3 xbg-white/20">
           <SidebarTrigger className="focus-visible:border-none focus-visible:outline-none " />
         </div>
         <main className="flex-1 overflow-y-auto">
@@ -25,7 +27,9 @@ function App() {
             <Route path="/workers/:id" element={<WorkerDetails />} />
             <Route path="/documents" element={<Documents />} />
             <Route path="/payments" element={<Payments />} />
+            <Route path="/medical" element={<Medical />} />
             <Route path="/workers/add" element={<AddWorker />} />
+            <Route path="/workers/add/bulk" element={<BulkAddWorker />} />
             <Route
               path="*"
               element={<h1 className="text-2xl font-bold ">404 Not Found</h1>}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSidebar } from "@/components/ui/sidebar";
 import { Input } from "@/components/ui/input";
 import { addWorker, type Worker } from "@/services/api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 
@@ -34,7 +34,7 @@ export default function AddWorker() {
   };
 
   return (
-    <div className="text-xl font-bold bxg-white/20 h-full w-full p-12 flex flex-col">
+    <div className="text-xl font-bold bxg-white/20 h-full w-full p-24 flex flex-col">
       <div className="self-start">
         <PageHeader title="Add Worker" />
       </div>
@@ -157,7 +157,7 @@ export default function AddWorker() {
           />
         </div> */}
       </form>
-      <div className="flex">
+      <div className="flex gap-3">
         <Button
           type="submit"
           variant="default"
@@ -167,6 +167,11 @@ export default function AddWorker() {
         >
           <p className="text-sm">Add Worker</p>
         </Button>
+        <Link to="/workers/add/bulk">
+          <Button className="mt-12 text-sm h-auto text-primary border-secondary place-self-start   ">
+            <p className="text-sm">Bulk Add</p>
+          </Button>
+        </Link>
       </div>
     </div>
   );

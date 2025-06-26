@@ -17,7 +17,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
 function Workers() {
@@ -114,7 +113,7 @@ function Workers() {
   };
 
   return (
-    <div className="text-xl font-bold bxg-white/20 h-full w-full p-12 flex flex-col">
+    <div className="text-xl font-bold bxg-white/20 h-full w-full p-24 flex flex-col">
       <PageHeader title="Workers" />
       <div className="flex items-center mb-3">
         <Button
