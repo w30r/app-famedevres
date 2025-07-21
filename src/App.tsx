@@ -9,7 +9,7 @@ import Payments from "./pages/Payments";
 import AddWorker from "./pages/AddWorker";
 import WorkerDetails from "./pages/WorkerDetails";
 import Medical from "./pages/Medical";
-import BulkAddWorker from "./pages/BulkAddWorker";
+// import BulkAddWorker from "./pages/BulkAddWorker";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
             <Route path="/payments" element={<Payments />} />
             <Route path="/medical" element={<Medical />} />
             <Route path="/workers/add" element={<AddWorker />} />
-            <Route path="/workers/add/bulk" element={<BulkAddWorker />} />
+            {/* <Route path="/workers/add/bulk" element={<BulkAddWorker />} /> */}
             <Route
               path="*"
               element={<h1 className="text-2xl font-bold ">404 Not Found</h1>}
