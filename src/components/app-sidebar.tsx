@@ -1,10 +1,4 @@
-import {
-  BanknoteArrowDown,
-  Cross,
-  FileText,
-  Home,
-  UsersRound,
-} from "lucide-react";
+import { Cross, FileText, Home, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Sidebar,

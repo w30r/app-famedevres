@@ -1,13 +1,6 @@
 import PageHeader from "@/components/PageHeader";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+// import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
 import { getWorkers, type Worker } from "@/services/api";
 import CountUp from "@/components/CountUp";
